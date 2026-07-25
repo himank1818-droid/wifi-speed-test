@@ -37,7 +37,7 @@
   <script>
     // Fetch all results
     function loadResults() {
-      fetch("http://localhost:5000/results")
+      fetch("https://wifi-speed-test-ikax.vercel.app/results")
         .then(res => res.json())
         .then(data => {
           const table = document.getElementById("resultsTable");
@@ -76,7 +76,7 @@
         downloadSpeed: form.downloadSpeed.value,
         uploadSpeed: form.uploadSpeed.value
       };
-      await fetch("http://localhost:5000/results", {
+      await fetch("https://wifi-speed-test-ikax.vercel.app/results", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -88,7 +88,7 @@
 
     // Delete a result
     function deleteResult(id) {
-      fetch(`http://localhost:5000/results/${id}`, { method: "DELETE" })
+      fetch(`https://wifi-speed-test-ikax.vercel.app/results/${id}`, { method: "DELETE" })
         .then(() => alert("Deleted!"))
         .then(() => loadResults());
     }
@@ -99,7 +99,7 @@
       const newUpload = prompt("Enter new upload speed:", uploadSpeed);
 
       if (newDownload !== null && newUpload !== null) {
-        fetch(`http://localhost:5000/results/${id}`, {
+        fetch(`https://wifi-speed-test-ikax.vercel.app/results/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
