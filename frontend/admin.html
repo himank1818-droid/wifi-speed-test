@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Speed Test Results</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    button { margin: 4px; padding: 6px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Speed Test Results</h2>
+
+  <!-- Add Form -->
+  <form id="addForm">
+    <input name="username" placeholder="Username" required>
+    <input name="downloadSpeed" placeholder="Download Speed" type="number" required>
+    <input name="uploadSpeed" placeholder="Upload Speed" type="number" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <br>
+
+  <table id="resultsTable">
+    <tr>
+      <th>Username</th>
+      <th>Download Speed</th>
+      <th>Upload Speed</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </table>
+
+  <script>
+    // Fetch all results
+    function loadResults() {
+      fetch("http://localhost:5000/results")
+        .then(res => res.json())
+        .then(data => {
+          const table = document.getElementById("resultsTable");
+          table.innerHTML = `
+            <tr>
+              <th>Username</th>
+              <th>Download Speed</th>
+              <th>Upload Speed</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>`;
+          data.forEach(r => {
+            table.innerHTML += `
+              <tr>
+                <td>${r.username}</td>
+                <td>${r.downloadSpeed}</td>
+                <td>${r.uploadSpeed}</td>
+                <td>${new Date(r.date).toLocaleString()}</td>
+                <td>
+                  <button onclick="editResult('${r._id}', '${r.username}', ${r.downloadSpeed}, ${r.uploadSpeed})">Edit</button>
+                  <button onclick="deleteResult('${r._id}')">Delete</button>
+                </td>
+              </tr>`;
+          });
+        });
+    }
+
+    loadResults();
+
+    // Add a result
+    document.getElementById("addForm").onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        username: form.username.value,
+        downloadSpeed: form.downloadSpeed.value,
+        uploadSpeed: form.uploadSpeed.value
+      };
+      await fetch("http://localhost:5000/results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      alert("Added!");
+      form.reset();
+      loadResults();
+    };
+
+    // Delete a result
+    function deleteResult(id) {
+      fetch(`http://localhost:5000/results/${id}`, { method: "DELETE" })
+        .then(() => alert("Deleted!"))
+        .then(() => loadResults());
+    }
+
+    // Edit a result
+    function editResult(id, username, downloadSpeed, uploadSpeed) {
+      const newDownload = prompt("Enter new download speed:", downloadSpeed);
+      const newUpload = prompt("Enter new upload speed:", uploadSpeed);
+
+      if (newDownload !== null && newUpload !== null) {
+        fetch(`http://localhost:5000/results/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: username,
+            downloadSpeed: newDownload,
+            uploadSpeed: newUpload
+          })
+        })
+        .then(() => alert("Updated!"))
+        .then(() => loadResults());
+      }
+    }
+  </script>
+</body>
+</html>
