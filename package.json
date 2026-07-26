@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --config vite.admin.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {
     "clsx": "2.1.1",
     "firebase": "^12.14.0",
+    "firebase-admin": "^13.0.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "tailwind-merge": "3.4.0"

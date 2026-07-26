@@ -399,6 +399,15 @@ export function useRealSpeedTest() {
       history.unshift(result);
       localStorage.setItem('speedtest-history', JSON.stringify(history.slice(0, 5)));
 
+      // Also send the result to the backend so it shows up in the admin panel's
+      // analytics. This is best-effort — if it fails, the test itself still
+      // succeeded for the visitor, so we only log the error.
+      fetch('/api/results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ download, upload, ping, jitter }),
+      }).catch((err) => console.warn('Could not save result to server:', err));
+
     } catch (error) {
       console.error('Speed test error:', error);
       setState(s => ({

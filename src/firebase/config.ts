@@ -1,32 +1,21 @@
 // ============================================
 // 🔐 FIREBASE CONFIGURATION
 // ============================================
-// 
-// OPTION 1: DEMO MODE (Current - Works Now!)
-// - No setup required
-// - Simulates Google Sign-In
-// - Perfect for testing
+// These values come from Vite environment variables so they can differ
+// between local dev (.env.local, gitignored) and production (set in
+// Vercel → Project Settings → Environment Variables).
 //
-// OPTION 2: REAL FIREBASE (For Production)
-// 1. Go to https://console.firebase.google.com/
-// 2. Create a new project
-// 3. Enable Google Authentication
-// 4. Copy your config below
+// All VITE_-prefixed variables are safe to expose to the browser —
+// that's how Firebase client config always works. The secret half of
+// auth (the service account used to VERIFY tokens) lives only in the
+// serverless functions under /api, never here.
 // ============================================
 
 export const firebaseConfig = {
-  // 🔴 REPLACE THESE WITH YOUR ACTUAL FIREBASE CREDENTIALS
-  apiKey: "AIzaSyDemoKey-ReplaceWithYourRealKey",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456",
-  measurementId: "G-XXXXXXXXXX"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-
-// Demo mode is enabled by default
-// Set to true when you add real Firebase credentials
-export const USE_REAL_FIREBASE = false;
-
-export default null;
