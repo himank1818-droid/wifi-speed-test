@@ -1,0 +1,413 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Premium Visual Polish */
+:root {
+  --primary: #00d4ff;
+  --secondary: #00ff88;
+  --bg-dark: #030712;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Premium Glassmorphism */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; 
+  background: linear-gradient(45deg, rgba(0,212,255,0.3), rgba(0,255,136,0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Dynamic Animations for High-End Feel */
+
+/* Subtle Float for floating components */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(0.5deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Background pulse for active states */
+@keyframes pulse-glow-border {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.02); }
+}
+
+.animate-glow-pulse {
+  animation: pulse-glow-border 4s ease-in-out infinite;
+}
+
+/* Reveal animation for cards */
+@keyframes reveal {
+  from { opacity: 0; transform: scale(0.95) translateY(15px); filter: blur(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+.animate-reveal {
+  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Gauge Needle Shiver (adds realism) */
+@keyframes shiver {
+  0% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+  100% { transform: rotate(-0.5deg); }
+}
+
+.animate-shiver {
+  animation: shiver 0.2s linear infinite;
+}
+
+/* Progress Bar Shimmer */
+@keyframes progress-loading {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.progress-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.4) 50%, 
+    rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: progress-loading 2s infinite;
+}
+
+/* Staggered delay for child elements */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* Button Magnetic Hover Effect */
+.btn-magnetic {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-magnetic:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 40px -10px rgba(0, 212, 255, 0.5);
+}
+
+/* Text Shimmer Effect */
+.text-shimmer {
+  background: linear-gradient(90deg, #fff, var(--primary), var(--secondary), #fff);
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine 8s linear infinite;
+}
+
+@keyframes shine {
+  to { background-position: 300% center; }
+}
+
+/* Moving Particle/Line Background Animation */
+.bg-moving-lines {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  animation: background-scroll 20s linear infinite;
+}
+
+@keyframes background-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 40px 40px; }
+}
+
+/* Solar System Motion for Gauge Background */
+@keyframes solar-orbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.solar-orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.planet {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 15px currentColor;
+}
+
+.orbit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  animation: solar-orbit linear infinite;
+}
+
+/* Floating Particles */
+@keyframes float-particle {
+  0% { transform: translate(0, 0); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translate(var(--tw-translate-x), var(--tw-translate-y)); opacity: 0; }
+}
+
+.animate-particle {
+  animation: float-particle 15s ease-in-out infinite;
+}
+
+/* Scanline effect for the gauge background */
+.scanline {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 100% 4px;
+  animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Crazy Speed Lines for Header */
+@keyframes speed-line {
+  0% { transform: translateY(-100%) scaleY(1); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(300%) scaleY(2); opacity: 0; }
+}
+
+.animate-speed-line {
+  animation: speed-line 3s linear infinite;
+}
+
+/* Title Glitch Effect */
+.crazy-glitch:hover {
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* Light Mode Overrides - TOTAL CLEAN WHITE THEME */
+.light-mode {
+  --bg-dark: #ffffff;
+}
+
+.light-mode body {
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
+}
+
+/* Make everything strictly black/white/clean in Day Mode */
+.light-mode * {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-mode .glass-card,
+.light-mode [role="dialog"] > div {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  backdrop-filter: none !important;
+}
+
+/* Force deep black text for perfect visibility */
+.light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4, .light-mode h5, .light-mode h6,
+.light-mode p, .light-mode span, .light-mode div, .light-mode li, .light-mode a, .light-mode button, .light-mode strong {
+  color: #000000 !important;
+}
+
+/* Subtext in slightly softer grey but still very dark */
+.light-mode .text-slate-400, 
+.light-mode .text-slate-500,
+.light-mode .text-slate-600 {
+  color: #444444 !important;
+}
+
+/* Navigation & Header - Pure White */
+.light-mode nav, 
+.light-mode header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #eeeeee !important;
+}
+
+/* Footer - Light Grey contrast from White Body */
+.light-mode footer {
+  background-color: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+/* Inputs - Cleanest possible look */
+.light-mode input {
+  background-color: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  color: #000000 !important;
+}
+
+/* Background Animations - Tone down for light mode */
+.light-mode .bg-moving-lines,
+.light-mode .scanline {
+  opacity: 0.05 !important;
+}
+
+.light-mode .solar-orbit-ring {
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Buttons - Maintain color but keep text readable */
+.light-mode .bg-gradient-to-r {
+  color: #000000 !important;
+}
+
+/* Aria Voice Assistant - Pure White Pop */
+.light-mode .fixed.bottom-6 .glass-card {
+  background-color: #ffffff !important;
+  border: 1px solid #dddddd !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+}
+
+/* Scrollbar for white theme */
+.light-mode::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+.light-mode::-webkit-scrollbar-thumb {
+  background: #cccccc;
+}
+
+/* Fix specific components */
+.light-mode .solar-orbit-ring {
+  border-color: rgba(0, 212, 255, 0.2);
+}
+
+.light-mode .bg-white\/5 {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Header & Nav Fix for Light Mode */
+.light-mode nav, 
+.light-mode header {
+  background-color: #ffffff !important;
+  border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-mode nav a,
+.light-mode nav button,
+.light-mode header button,
+.light-mode header span {
+  color: #0f172a !important;
+}
+
+.light-mode .border-white\/10,
+.light-mode .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-mode .bg-black\/20 {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-mode .bg-black\/80 {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Ensure Aria voice assistant bubble is readable */
+.light-mode .fixed.bottom-6 .glass-card {
+  background: white !important;
+  color: #0f172a !important;
+}
+
+.light-mode .fixed.bottom-6 .text-slate-300 {
+  color: #1e293b !important;
+}
+
+.light-mode .bg-white\/10 {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Fix gauge text */
+.light-mode .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
