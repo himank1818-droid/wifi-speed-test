@@ -42,9 +42,14 @@ export async function requireAdmin(req, res) {
   let decoded;
   try {
     getAdminApp();
+  } catch (err) {
+    res.status(500).json({ error: 'Firebase Admin not configured: ' + err.message });
+    return null;
+  }
+  try {
     decoded = await getAuth().verifyIdToken(token);
   } catch (err) {
-    res.status(401).json({ error: 'Invalid or expired token' });
+    res.status(401).json({ error: 'Invalid or expired token: ' + err.message });
     return null;
   }
 
